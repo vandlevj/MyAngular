@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myController">
+    
+        <table>
+            <tr>
+                <td>Name: </td>
+                <td><input type="text" ng-model="empName"/></td>
+            </tr>
+            <tr>
+                <td>Gender: </td>
+                <td>
+                    <input type="radio" ng-model="empGender" value="1"/>Male
+                    <input type="radio" ng-model="empGender" value="2"/>FeMale
+                </td>
+                
+            </tr>
+            
+            <tr>
+                <td>Salary: </td>
+                <td><input type="text" ng-model="empSalary"/></td>
+            </tr>
+            <tr>
+                <td>City: </td>
+                <td><input type="text" ng-model="empCity"/></td>
+            </tr>
+        </table>
+        <input type="button" value="Save" ng-click="saveEmployee()"/>
+        <span ng-hide="empIndex<0">Make changes then Save</span>
+    
+        <br/>
+        <br/>
+        
+        Rows to display: 
+        <input type="number" step="1" min="0" max="5" ng-model="rowLimit"/>
+        </br>
+        Search: 
+        <input type="text" placeholder="search here" ng-model="searchText"/>
+        </br>
+        </br>
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Salary</th>
+                <th>City</th>
+                <th>Options</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee in employees | filter:search | limitTo:rowLimit">
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.gender | gender}}</td>
+                    <td>{{ employee.salary | currency:'$':1 }}</td>
+                    <td>{{ employee.city }}</td>
+                    <td>
+                        <input type="button" value="Edit" ng-click="editEmp($index)"/>
+                        <input type="button" value="Delete" ng-click="deleteEmp($index)"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="D:\Developing\AngularJS\angular-1.6.3\angular.js"></script>
+    <script src="controllers\controller.js"></script>
+    <script src="filters\filter.js"></script>
+</body>    
+</html>
